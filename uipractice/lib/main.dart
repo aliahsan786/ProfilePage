@@ -35,35 +35,48 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 10,
-        backgroundColor: Color.fromRGBO(47, 207, 255, 1),
         leading: Icon(
-          Icons.arrow_back_ios_new_outlined,
-          color: Colors.black,
+          Icons.arrow_back,
+          color: Colors.white,
         ),
-        actions: [
-          Padding(
-              padding: EdgeInsets.only(
-                left: 15,
-                right: 20,
-              ),
-              child: Icon(
-                Icons.refresh,
-                color: Colors.black,
-              )),
-          Padding(
-            padding: EdgeInsets.only(
-              // left: 15,
-              right: 28,
-            ),
-            child: Icon(
-              Icons.menu,
-              color: Colors.black,
+        backgroundColor: Color.fromRGBO(54, 54, 56, 0.5),
+        elevation: 0,
+      ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Container(
+          // color: Color.fromRGBO(54, 54, 56, 0.5),
+          width: 200, height: 300,
+
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(54, 54, 56, 0.5),
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(50.0),
             ),
           ),
-        ],
+
+          child: Column(
+            children: [
+              Text(
+                'Profile',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              // Container(
+              //     width: 100,
+              //     height: 100,
+              //     child: Image.asset(
+              //       'images/c1.png',
+              //     )),
+            ],
+          ),
+        ),
       ),
-      body: Center(),
     );
   }
 }
