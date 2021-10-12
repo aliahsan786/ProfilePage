@@ -78,14 +78,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   //     )),
                 ),
               ),
-              // Stack(
-              //   children: [
-              //     CircleAvatar(
-              //       radius: 70,
-              //       backgroundImage: ExactAssetImage('images/c1.png'),
-              //     ),
-              //   ],
-              // ),
+              Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 70,
+                    backgroundImage: ExactAssetImage('images/c1.png'),
+                  ),
+                ],
+              ),
               Column(
                 children: [
                   Container(
@@ -121,11 +121,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   Container(
-                      padding: const EdgeInsets.all(20.0),
-                      child: MaterialButton(
-                        onPressed: () {},
-                        color: Color.fromRGBO(54, 54, 56, 0.5),
-                      )),
+                    height: 50, width: MediaQuery.of(context).size.width - 40,
+                    color: Color.fromRGBO(54, 54, 56, 0.5),
+                    // padding: const EdgeInsets.only(top: 20),
+                    child: MaterialButton(
+                      // height: 30,
+                      onPressed: () {},
+                      child: Text(
+                        'Update',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  )
                 ],
               )
             ],
