@@ -45,41 +45,91 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width + 10,
-              height: 300,
-
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(54, 54, 56, 0.5),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(150.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width + 200,
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(54, 54, 56, 0.5),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.elliptical(7050, 2050),
+                  ),
+                ),
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      'Profile',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  // Container(
+                  //     width: 100,
+                  //     height: 100,
+                  //     child: Image.asset(
+                  //       'images/c1.png',
+                  //     )),
                 ),
               ),
-
-              // child: Stack(
+              // Stack(
               //   children: [
-              //     Text(
-              //       'Profile',
-              //       style: TextStyle(
-              //         fontSize: 30,
-              //         fontWeight: FontWeight.w600,
-              //         color: Colors.white,
-              //       ),
+              //     CircleAvatar(
+              //       radius: 70,
+              //       backgroundImage: ExactAssetImage('images/c1.png'),
               //     ),
-              //     // Container(
-              //     //     width: 100,
-              //     //     height: 100,
-              //     //     child: Image.asset(
-              //     //       'images/c1.png',
-              //     //     )),
               //   ],
               // ),
-            ),
-            Expanded(child: Text('data'))
-          ],
+              Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Username',
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Confirm Password',
+                      ),
+                    ),
+                  ),
+                  Container(
+                      padding: const EdgeInsets.all(20.0),
+                      child: MaterialButton(
+                        onPressed: () {},
+                        color: Color.fromRGBO(54, 54, 56, 0.5),
+                      )),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
