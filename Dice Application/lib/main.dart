@@ -12,13 +12,20 @@ void result(String name, BuildContext context) {
   showDialog(
       context: context,
       builder: (_) => AlertDialog(
+            backgroundColor: Colors.amberAccent,
             title: Text(
               'Results',
-              style: TextStyle(color: Colors.red.shade700),
+              style: TextStyle(
+                  color: Colors.red.shade700,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w600),
             ),
             content: Text(
               'Winner is $name',
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w600),
             ),
           ));
 }
@@ -44,20 +51,20 @@ class DiceApp extends StatefulWidget {
 }
 
 class _DiceAppState extends State<DiceApp> {
-  int index1 = 0;
+  int index1 = 1;
   int number1 = 1;
   int total1 = 0;
-  int index2 = 0;
+  int index2 = 1;
   int number2 = 1;
   int total2 = 0;
-  int index3 = 0;
+  int index3 = 1;
   int number3 = 1;
   int total3 = 0;
-  int index4 = 0;
+  int index4 = 1;
   int number4 = 1;
   int total4 = 0;
   int flage = 1;
-  String player = 'Nutral';
+  String player = '1st Player Turn';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,13 +107,6 @@ class _DiceAppState extends State<DiceApp> {
                               left: 14, right: 14, bottom: 14),
                           child: Column(
                             children: [
-                              // Text(
-                              //   'Player 1',
-                              //   style: TextStyle(
-                              //     fontWeight: FontWeight.w500,
-                              //     fontSize: 26,
-                              //   ),
-                              // ),
                               Container(
                                 padding: EdgeInsets.all(6),
                                 color: Colors.yellow,
@@ -116,17 +116,20 @@ class _DiceAppState extends State<DiceApp> {
                                     if (flage == 1) {
                                       setState(
                                         () {
-                                          index1 = 1 + index1;
                                           if (index1 < 11) {
                                             number1 = Random().nextInt(6) + 1;
-
                                             total1 = number1 + total1;
-
                                             print(index1);
                                             print(number1);
                                             print(total1);
-                                            flage = 2;
-                                            player = '2nd Player Turn';
+                                            if (number1 == 6) {
+                                              flage = 1;
+                                              player = 'Again 1nd Player Turn';
+                                            } else {
+                                              flage = 2;
+                                              player = '2nd Player Turn';
+                                              index1 = 1 + index1;
+                                            }
                                           }
                                         },
                                       );
@@ -157,17 +160,20 @@ class _DiceAppState extends State<DiceApp> {
                                     if (flage == 2) {
                                       setState(
                                         () {
-                                          index2 = 1 + index2;
                                           if (index2 < 10) {
                                             number2 = Random().nextInt(6) + 1;
-
                                             total2 = number2 + total2;
-
                                             print(index2);
                                             print(number2);
                                             print(total2);
-                                            flage = 3;
-                                            player = '3rd Player Turn';
+                                            if (number2 == 6) {
+                                              flage = 2;
+                                              player = 'Again 2nd Player Turn';
+                                            } else {
+                                              flage = 3;
+                                              player = '3nd Player Turn';
+                                              index2 = 1 + index1;
+                                            }
                                           }
                                         },
                                       );
@@ -198,17 +204,20 @@ class _DiceAppState extends State<DiceApp> {
                                     if (flage == 3) {
                                       setState(
                                         () {
-                                          index3 = 1 + index3;
                                           if (index3 < 10) {
                                             number3 = Random().nextInt(6) + 1;
-
                                             total3 = number3 + total3;
-
                                             print(index3);
                                             print(number3);
                                             print(total3);
-                                            flage = 4;
-                                            player = '4th Player Turn';
+                                            if (number3 == 6) {
+                                              flage = 3;
+                                              player = 'Again 3nd Player Turn';
+                                            } else {
+                                              flage = 4;
+                                              player = '4nd Player Turn';
+                                              index3 = 1 + index1;
+                                            }
                                           }
                                         },
                                       );
@@ -238,17 +247,20 @@ class _DiceAppState extends State<DiceApp> {
                                     if (flage == 4) {
                                       setState(
                                         () {
-                                          index4 = 1 + index4;
                                           if (index4 < 10) {
                                             number4 = Random().nextInt(6) + 1;
-
                                             total4 = number4 + total4;
-
                                             print(index4);
                                             print(number4);
                                             print(total4);
-                                            flage = 1;
-                                            player = '1st Player Turn';
+                                            if (number4 == 6) {
+                                              flage = 4;
+                                              player = 'Again 4nd Player Turn';
+                                            } else {
+                                              flage = 1;
+                                              player = '1nd Player Turn';
+                                              index4 = 1 + index1;
+                                            }
                                           }
                                         },
                                       );
@@ -285,17 +297,50 @@ class _DiceAppState extends State<DiceApp> {
                     ),
                   ),
                   onPressed: () {
-                    if (total1 > total2 && total1 > total3 && total1 > total4) {
-                      result('player1', context);
-                    }
-                    if (total2 > total1 && total2 > total3 && total2 > total4) {
-                      result('player2', context);
-                    }
-                    if (total3 > total2 && total3 > total1 && total3 > total4) {
-                      result('player3', context);
-                    }
-                    if (total4 > total2 && total4 > total3 && total4 > total1) {
-                      result('player4', context);
+                    if (index1 == 10 &&
+                        index2 == 10 &&
+                        index3 == 10 &&
+                        index4 == 10) {
+                      if (total1 > total2 &&
+                          total1 > total3 &&
+                          total1 > total4) {
+                        result('player1', context);
+                      }
+                      if (total2 > total1 &&
+                          total2 > total3 &&
+                          total2 > total4) {
+                        result('player2', context);
+                      }
+                      if (total3 > total2 &&
+                          total3 > total1 &&
+                          total3 > total4) {
+                        result('player3', context);
+                      }
+                      if (total4 > total2 &&
+                          total4 > total3 &&
+                          total4 > total1) {
+                        result('player4', context);
+                      }
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                backgroundColor: Colors.amberAccent,
+                                title: Text(
+                                  'Sorry!!!...',
+                                  style: TextStyle(
+                                      color: Colors.red.shade700,
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                content: Text(
+                                  'Please, Insure that All Players have completed their Rurns...',
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ));
                     }
                   }),
             ),
