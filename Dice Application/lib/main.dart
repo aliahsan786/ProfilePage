@@ -116,7 +116,7 @@ class _DiceAppState extends State<DiceApp> {
                                     if (flage == 1) {
                                       setState(
                                         () {
-                                          if (index1 < 11) {
+                                          if (index1 <= 10) {
                                             number1 = Random().nextInt(6) + 1;
                                             total1 = number1 + total1;
                                             print(index1);
@@ -160,7 +160,7 @@ class _DiceAppState extends State<DiceApp> {
                                     if (flage == 2) {
                                       setState(
                                         () {
-                                          if (index2 < 10) {
+                                          if (index2 <= 10) {
                                             number2 = Random().nextInt(6) + 1;
                                             total2 = number2 + total2;
                                             print(index2);
@@ -172,7 +172,7 @@ class _DiceAppState extends State<DiceApp> {
                                             } else {
                                               flage = 3;
                                               player = '3nd Player Turn';
-                                              index2 = 1 + index1;
+                                              index2 = 1 + index2;
                                             }
                                           }
                                         },
@@ -204,7 +204,7 @@ class _DiceAppState extends State<DiceApp> {
                                     if (flage == 3) {
                                       setState(
                                         () {
-                                          if (index3 < 10) {
+                                          if (index3 <= 10) {
                                             number3 = Random().nextInt(6) + 1;
                                             total3 = number3 + total3;
                                             print(index3);
@@ -216,7 +216,7 @@ class _DiceAppState extends State<DiceApp> {
                                             } else {
                                               flage = 4;
                                               player = '4nd Player Turn';
-                                              index3 = 1 + index1;
+                                              index3 = 1 + index3;
                                             }
                                           }
                                         },
@@ -247,7 +247,7 @@ class _DiceAppState extends State<DiceApp> {
                                     if (flage == 4) {
                                       setState(
                                         () {
-                                          if (index4 < 10) {
+                                          if (index4 <= 10) {
                                             number4 = Random().nextInt(6) + 1;
                                             total4 = number4 + total4;
                                             print(index4);
@@ -258,8 +258,11 @@ class _DiceAppState extends State<DiceApp> {
                                               player = 'Again 4nd Player Turn';
                                             } else {
                                               flage = 1;
+                                              index4 = 1 + index4;
                                               player = '1nd Player Turn';
-                                              index4 = 1 + index1;
+                                              if (index4 == 11) {
+                                                player = 'Complete';
+                                              }
                                             }
                                           }
                                         },
