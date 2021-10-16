@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:uipractice/Player.dart';
 
 void main() {
   runApp(MyApp());
@@ -75,21 +76,7 @@ class _DiceAppState extends State<DiceApp> {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    child: Column(
-                      children: [
-                        Image.asset('images/dice$number1.png'),
-                        Text(
-                          ' Total : $total1',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          'Score : $number1',
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
+                    child: Player(number1, total1),
                     onTap: () {
                       setState(() {
                         index1 = 1 + index1;
@@ -101,7 +88,7 @@ class _DiceAppState extends State<DiceApp> {
                           print(index1);
                           print(number1);
                           print(total1);
-                        } else {}
+                        }
                       });
                     },
                   ),
@@ -111,21 +98,7 @@ class _DiceAppState extends State<DiceApp> {
                 ),
                 Expanded(
                   child: GestureDetector(
-                    child: Column(
-                      children: [
-                        Image.asset('images/dice$number2.png'),
-                        Text(
-                          ' Total : $total2',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          'Score : $number2',
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
+                    child: Player(number2, total2),
                     onTap: () {
                       setState(() {
                         index2 = 1 + index2;
@@ -137,7 +110,7 @@ class _DiceAppState extends State<DiceApp> {
                           print(index2);
                           print(number2);
                           print(total2);
-                        } else {}
+                        }
                       });
                     },
                   ),
@@ -148,21 +121,7 @@ class _DiceAppState extends State<DiceApp> {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    child: Column(
-                      children: [
-                        Image.asset('images/dice$number3.png'),
-                        Text(
-                          ' Total : $total3',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          'Score : $number3',
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
+                    child: Player(number3, total3),
                     onTap: () {
                       setState(() {
                         index3 = 1 + index3;
@@ -174,7 +133,7 @@ class _DiceAppState extends State<DiceApp> {
                           print(index3);
                           print(number3);
                           print(total3);
-                        } else {}
+                        }
                       });
                     },
                   ),
@@ -184,21 +143,7 @@ class _DiceAppState extends State<DiceApp> {
                 ),
                 Expanded(
                   child: GestureDetector(
-                    child: Column(
-                      children: [
-                        Image.asset('images/dice$number4.png'),
-                        Text(
-                          ' Total : $total4',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          'Score : $number4',
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
+                    child: Player(number4, total4),
                     onTap: () {
                       setState(() {
                         index4 = 1 + index4;
@@ -210,7 +155,7 @@ class _DiceAppState extends State<DiceApp> {
                           print(index4);
                           print(number4);
                           print(total4);
-                        } else {}
+                        }
                       });
                     },
                   ),
