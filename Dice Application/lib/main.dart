@@ -69,6 +69,7 @@ class _DiceAppState extends State<DiceApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         backgroundColor: Colors.amberAccent,
         title: Text('DiceApp'),
       ),
@@ -286,66 +287,59 @@ class _DiceAppState extends State<DiceApp> {
             ),
             Expanded(
               child: RaisedButton(
+                elevation: 5,
+                padding: EdgeInsets.only(left: 5, right: 5),
+                color: Colors.amberAccent,
+                child: Container(
                   padding: EdgeInsets.only(left: 5, right: 5),
-                  color: Colors.amberAccent,
-                  child: Container(
-                    padding: EdgeInsets.only(left: 5, right: 5),
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: 22,
-                    child: Text(
-                      'Result Button',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: 22,
+                  child: Text(
+                    'Result Button',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
-                  onPressed: () {
-                    if (index1 == 10 &&
-                        index2 == 10 &&
-                        index3 == 10 &&
-                        index4 == 10) {
-                      if (total1 > total2 &&
-                          total1 > total3 &&
-                          total1 > total4) {
-                        result('player1', context);
-                      }
-                      if (total2 > total1 &&
-                          total2 > total3 &&
-                          total2 > total4) {
-                        result('player2', context);
-                      }
-                      if (total3 > total2 &&
-                          total3 > total1 &&
-                          total3 > total4) {
-                        result('player3', context);
-                      }
-                      if (total4 > total2 &&
-                          total4 > total3 &&
-                          total4 > total1) {
-                        result('player4', context);
-                      }
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                                backgroundColor: Colors.amberAccent,
-                                title: Text(
-                                  'Sorry!!!...',
-                                  style: TextStyle(
-                                      color: Colors.red.shade700,
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                content: Text(
-                                  'Please, Insure that All Players have completed their Rurns...',
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ));
+                ),
+                onPressed: () {
+                  if (index1 == 10 &&
+                      index2 == 10 &&
+                      index3 == 10 &&
+                      index4 == 10) {
+                    if (total1 > total2 && total1 > total3 && total1 > total4) {
+                      result('player1', context);
                     }
-                  }),
+                    if (total2 > total1 && total2 > total3 && total2 > total4) {
+                      result('player2', context);
+                    }
+                    if (total3 > total2 && total3 > total1 && total3 > total4) {
+                      result('player3', context);
+                    }
+                    if (total4 > total2 && total4 > total3 && total4 > total1) {
+                      result('player4', context);
+                    }
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                              backgroundColor: Colors.amberAccent,
+                              title: Text(
+                                'Sorry!!!...',
+                                style: TextStyle(
+                                    color: Colors.red.shade700,
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              content: Text(
+                                'Please, Insure that All Players have completed their Rurns...',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ));
+                  }
+                },
+              ),
             ),
             SizedBox(
               height: 20,
