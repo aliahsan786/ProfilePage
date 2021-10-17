@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:uipractice/Player.dart';
+import 'package:uipractice/SplashScreen.dart';
 
 void main() {
   runApp(MyApp());
