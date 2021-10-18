@@ -72,9 +72,23 @@ class _DiceAppState extends State<DiceApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 60,
+        centerTitle: true,
         elevation: 1,
         backgroundColor: Colors.amberAccent,
-        title: Text('DiceApp'),
+        title: Text(
+          'DiceApp',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 28),
+        ),
+        leading: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Image.asset(
+              'images/c1.png',
+            ),
+          ),
+        ),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -86,22 +100,34 @@ class _DiceAppState extends State<DiceApp> {
             SizedBox(
               height: 15,
             ),
+            SizedBox(
+              width: 20,
+            ),
             Text(
               player,
               style: TextStyle(
-                fontSize: 26,
+                fontSize: 20,
                 fontWeight: FontWeight.w500,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                ' ${index1 - 1}',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 14.0, right: 14.0, top: 0, bottom: 0),
+                  left: 14.0, right: 14.0, top: 5, bottom: 5),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 20,
+                    height: 0,
                   ),
                   Row(
                     children: [
@@ -334,6 +360,7 @@ class _DiceAppState extends State<DiceApp> {
                       number4 = 1;
                       total4 = 0;
                       flage = 1;
+                      player = '1st Player Turn';
                     });
                   } else {
                     showDialog(

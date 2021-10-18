@@ -32,11 +32,11 @@ class Playerbody extends StatelessWidget {
       children: [
         Text(
           ' Total : $total',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
         ),
         Text(
           'Score : $number',
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
         ),
       ],
     );
