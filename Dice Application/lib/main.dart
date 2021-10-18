@@ -10,6 +10,7 @@ void main() {
 
 void result(String name, BuildContext context) {
   print(name);
+
   showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -319,6 +320,21 @@ class _DiceAppState extends State<DiceApp> {
                     if (total4 > total2 && total4 > total3 && total4 > total1) {
                       result('player4', context);
                     }
+                    setState(() {
+                      index1 = 1;
+                      number1 = 1;
+                      total1 = 0;
+                      index2 = 1;
+                      number2 = 1;
+                      total2 = 0;
+                      index3 = 1;
+                      number3 = 1;
+                      total3 = 0;
+                      index4 = 1;
+                      number4 = 1;
+                      total4 = 0;
+                      flage = 1;
+                    });
                   } else {
                     showDialog(
                         context: context,
