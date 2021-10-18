@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DiceApp(),
+      home: SplashScreen(),
     );
   }
 }
@@ -65,6 +65,7 @@ class _DiceAppState extends State<DiceApp> {
   int number4 = 1;
   int total4 = 0;
   int flage = 1;
+
   String player = '1st Player Turn';
   @override
   Widget build(BuildContext context) {
@@ -302,10 +303,10 @@ class _DiceAppState extends State<DiceApp> {
                   ),
                 ),
                 onPressed: () {
-                  if (index1 == 10 &&
-                      index2 == 10 &&
-                      index3 == 10 &&
-                      index4 == 10) {
+                  if (index1 == 11 &&
+                      index2 == 11 &&
+                      index3 == 11 &&
+                      index4 == 11) {
                     if (total1 > total2 && total1 > total3 && total1 > total4) {
                       result('player1', context);
                     }
