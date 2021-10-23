@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Ludo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -124,6 +124,8 @@ class _DiceAppState extends State<DiceApp> {
         color: Colors.grey.shade300,
         //1st player
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               height: 15,
@@ -164,6 +166,7 @@ class _DiceAppState extends State<DiceApp> {
                           padding: const EdgeInsets.only(
                               left: 14, right: 14, bottom: 14),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
                                 padding: EdgeInsets.all(6),
@@ -208,6 +211,7 @@ class _DiceAppState extends State<DiceApp> {
                           padding: const EdgeInsets.only(
                               left: 14, right: 14, bottom: 14),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
                                 padding: EdgeInsets.all(6),
@@ -252,6 +256,7 @@ class _DiceAppState extends State<DiceApp> {
                         child: Padding(
                           padding: const EdgeInsets.all(14),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
                                 padding: EdgeInsets.all(6),
@@ -295,6 +300,7 @@ class _DiceAppState extends State<DiceApp> {
                         child: Padding(
                           padding: const EdgeInsets.all(14),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
                                 padding: EdgeInsets.all(6),
@@ -388,7 +394,7 @@ class _DiceAppState extends State<DiceApp> {
                                     fontWeight: FontWeight.w600),
                               ),
                               content: Text(
-                                'Please, Insure that All Players have completed their Rurns...',
+                                'Please, Insure that All Players have completed their turns...',
                                 style: TextStyle(
                                     color: Colors.blue,
                                     fontSize: 25,
