@@ -1,6 +1,7 @@
 // import 'package:XylophoneApp/SplashScreen.dart';
 
 // import 'package:XylophoneApp/practice.dart';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,15 +11,15 @@ import 'audio_picker.dart';
 void main() => runApp(XylophoneApp());
 
 class XylophoneApp extends StatefulWidget {
-  const XylophoneApp({Key? key}) : super(key: key);
+  // const XylophoneApp({Key? key}) : super(key: key);
 
   @override
   _XylophoneAppState createState() => _XylophoneAppState();
 }
 
 void playSound(int num) {
-  final player = AudioCache();
-  player.play('note$num.wav');
+  // final player = AudioCache();
+  // player.play('note$num.wav');
 }
 
 Expanded buildKey(int n, Color color) {
@@ -47,7 +48,7 @@ class _XylophoneAppState extends State<XylophoneApp> {
 
   void showLoading() {
     showDialog(
-      context: context,
+      context: navigatorKey.currentState.overlay.context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
@@ -55,19 +56,19 @@ class _XylophoneAppState extends State<XylophoneApp> {
             mainAxisSize: MainAxisSize.min,
             children: [
               new CircularProgressIndicator(),
-              new Text("Loading"),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Text("Loading"),
+              ),
             ],
           ),
         );
       },
     );
-    new Future.delayed(new Duration(seconds: 3), () {
-      Navigator.pop(context); //pop dialog
-    });
   }
 
   void dismissLoading() {
-    Navigator.pop(navigatorKey.currentState!.overlay!.context);
+    Navigator.pop(navigatorKey.currentState.overlay.context);
   }
 
   void openAudioPicker() async {
