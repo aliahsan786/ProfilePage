@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'QuizQuestion.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
+bool userBoolAnswer = false;
+
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,6 +23,8 @@ class MyApp extends StatelessWidget {
 }
 
 List<Icon> iconList = [];
+int obtainMarks = 0;
+String displayQuestion = getQuestion();
 
 class QuizApp extends StatefulWidget {
   const QuizApp({Key? key}) : super(key: key);
@@ -41,12 +48,22 @@ class _QuizAppState extends State<QuizApp> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Text(
+              'Obtain Marks = $obtainMarks',
+              style: const TextStyle(
+                color: Colors.blue,
+                backgroundColor: Colors.white,
+                fontSize: 30,
+              ),
+            ),
             const Expanded(
               flex: 6,
               child: Center(
                 child: Text(
-                  'Quiz Quiestion will be here',
-                  style: TextStyle(color: Colors.white),
+                  'displayQuestion',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -55,14 +72,10 @@ class _QuizAppState extends State<QuizApp> {
                   const EdgeInsets.only(left: 0, right: 0, top: 5, bottom: 5),
               child: MaterialButton(
                 onPressed: () {
+                  userBoolAnswer = true;
+                  answerCheck();
                   setState(() {
-                    iconList.add(
-                      const Icon(
-                        Icons.check,
-                        color: Colors.green,
-                        size: 20,
-                      ),
-                    );
+                    nextQuestion();
                   });
                 },
                 child: Container(
@@ -84,14 +97,10 @@ class _QuizAppState extends State<QuizApp> {
                   const EdgeInsets.only(left: 0, right: 0, top: 5, bottom: 5),
               child: MaterialButton(
                 onPressed: () {
+                  userBoolAnswer = false;
+                  answerCheck();
                   setState(() {
-                    iconList.add(
-                      const Icon(
-                        Icons.close,
-                        color: Colors.red,
-                        size: 20,
-                      ),
-                    );
+                    nextQuestion();
                   });
                 },
                 child: Container(

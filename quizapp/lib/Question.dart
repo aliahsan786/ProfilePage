@@ -1,5 +1,7 @@
+// ignore_for_file: file_names
+
 class Question {
-  String question;
+  String questionText;
   bool rightAnswer;
-  Question(this.question, this.rightAnswer);
+  Question(this.questionText, this.rightAnswer);
 }

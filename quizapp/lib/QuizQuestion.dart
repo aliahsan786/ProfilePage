@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/Question.dart';
 
-List<Question> isQuestion = [
+import 'main.dart';
+
+List<Question> questionBank = [
   Question('Some cats are actually allergic to humans', true),
   Question('You can lead a cow down stairs but not up stairs.', false),
   Question('Approximately one quarter of human bones are in the feet.', true),
@@ -30,17 +32,49 @@ List<Question> isQuestion = [
       'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
       true),
 ];
+int _questionNumber = 0;
 
-class QuizQuestion extends StatefulWidget {
-  const QuizQuestion({Key? key}) : super(key: key);
-
-  @override
-  _QuizQuestionState createState() => _QuizQuestionState();
+void closeIcon() {
+  iconList.add(
+    const Icon(
+      Icons.close,
+      color: Colors.red,
+      size: 20,
+    ),
+  );
 }
 
-class _QuizQuestionState extends State<QuizQuestion> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+void checkIcon() {
+  iconList.add(
+    const Icon(
+      Icons.check,
+      color: Colors.green,
+      size: 20,
+    ),
+  );
+}
+
+String getQuestion() {
+  return questionBank[_questionNumber].questionText;
+}
+
+void nextQuestion() {
+  if (_questionNumber < questionBank.length - 1) {
+    _questionNumber++;
+  } else {
+    print(
+      Text('finished'),
+    );
+  }
+}
+
+bool answerCheck() {
+  if (userBoolAnswer == questionBank[_questionNumber].rightAnswer) {
+    checkIcon();
+    obtainMarks = obtainMarks + 2;
+    return true;
+  } else {
+    closeIcon();
+    return false;
   }
 }
