@@ -17,6 +17,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+List<Icon> iconList = [];
+
 class QuizApp extends StatefulWidget {
   const QuizApp({Key? key}) : super(key: key);
 
@@ -36,7 +38,8 @@ class _QuizAppState extends State<QuizApp> {
         height: MediaQuery.of(context).size.height,
         color: Colors.black,
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Expanded(
               flex: 6,
@@ -51,7 +54,17 @@ class _QuizAppState extends State<QuizApp> {
               padding:
                   const EdgeInsets.only(left: 0, right: 0, top: 5, bottom: 5),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    iconList.add(
+                      const Icon(
+                        Icons.check,
+                        color: Colors.green,
+                        size: 20,
+                      ),
+                    );
+                  });
+                },
                 child: Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
@@ -70,7 +83,17 @@ class _QuizAppState extends State<QuizApp> {
               padding:
                   const EdgeInsets.only(left: 0, right: 0, top: 5, bottom: 5),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    iconList.add(
+                      const Icon(
+                        Icons.close,
+                        color: Colors.red,
+                        size: 20,
+                      ),
+                    );
+                  });
+                },
                 child: Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
@@ -85,17 +108,9 @@ class _QuizAppState extends State<QuizApp> {
                     )),
               ),
             ),
+            const SizedBox(height: 10),
             Row(
-              children: [
-                Container(
-                  height: 20,
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 10),
-              ],
+              children: iconList,
             ),
           ],
         ),
