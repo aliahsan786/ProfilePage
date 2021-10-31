@@ -4,7 +4,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:quizapp/SplashScreen.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'Question.dart';
 import 'QuizQuestion.dart';
+import 'resultDisplay.dart';
 
 QuizQuestion quizQuestion = new QuizQuestion();
 
@@ -32,10 +35,12 @@ List<Icon> iconList = [
     color: Colors.white,
   )
 ];
+List<Question> rightAnswers = [];
+List<Question> wrongAnswers = [];
+int number = 1;
+
 int obtainMarks = 0;
 bool listFinished = true;
-
-// String displayQuestion = QuizQuestion.getQuestion();
 
 class QuizApp extends StatefulWidget {
   const QuizApp({Key? key}) : super(key: key);
@@ -45,8 +50,20 @@ class QuizApp extends StatefulWidget {
 }
 
 int totalQuestion = quizQuestion.questionBank.length;
+int remainQuestion = quizQuestion.questionBank.length;
 
 class _QuizAppState extends State<QuizApp> {
+//down navigator to next screen
+  getItemAndNavigate(BuildContext context) {
+    Navigator.push(
+      // ignore: prefer_const_constructors
+      context,
+      MaterialPageRoute(
+          builder: (context) => ResutDisplay(rightAnswers, wrongAnswers)),
+    );
+  }
+//uper navigator to next Screen
+
   int _seconds = 00;
   int _minutes = quizQuestion.questionBank.length ~/ 2;
   Timer _timer = Timer.periodic(const Duration(seconds: 1), (_) {});
@@ -73,31 +90,53 @@ class _QuizAppState extends State<QuizApp> {
           } else {
             _timer.cancel();
             print('Timer is completed');
+            setState(() {
+              listFinished = false;
+            });
           }
         }
       });
     });
   }
 
-  int number = 1;
-
   void checkAnswer(bool userValue) {
     if (listFinished == true) {
       if (userValue == quizQuestion.rightBoolvalue()) {
         setState(() {
           quizQuestion.checkIcon();
-
+          remainQuestion = remainQuestion - 1;
+          rightAnswers.add(
+              quizQuestion.questionBank[quizQuestion.questionNumber() - 2]);
           obtainMarks = obtainMarks + 2;
           number = quizQuestion.questionNumber();
+          // remainQuestion = quizQuestion.remainQuestion();
         });
       } else {
         setState(() {
           quizQuestion.closeIcon();
+          remainQuestion = remainQuestion - 1;
+          wrongAnswers.add(
+              quizQuestion.questionBank[quizQuestion.questionNumber() - 2]);
+
           number = quizQuestion.questionNumber();
+          // remainQuestion = quizQuestion.remainQuestion();
         });
       }
       setState(() {
         quizQuestion.nextQuestion();
+      });
+    } else {
+      setState(() {
+        Alert(
+                context: context,
+                title: 'Finished!',
+                desc: 'You\'ve reached the end of the quiz.',
+                closeFunction: getItemAndNavigate(context))
+            .show();
+        quizQuestion.reSet();
+        number = 1;
+        _seconds = 0;
+        _minutes = 0;
       });
     }
   }
@@ -128,14 +167,14 @@ class _QuizAppState extends State<QuizApp> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Quiz : $totalQuestion',
+                        'Quiz : ${remainQuestion} / ${totalQuestion}',
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w300),
                       ),
                       const SizedBox(
-                        width: 200,
+                        width: 175,
                       ),
                       Text(
                         '${_minutes} : ${_seconds}',

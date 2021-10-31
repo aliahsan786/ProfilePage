@@ -1,7 +1,5 @@
 // ignore_for_file: file_names
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:quizapp/Question.dart';
 
@@ -64,7 +62,8 @@ class QuizQuestion {
   void nextQuestion() {
     if (_questionNumber < questionBank.length - 1) {
       _questionNumber++;
-    } else {
+    }
+    if (_questionNumber > questionBank.length - 2) {
       listFinished =
           false; // IT will false when the every element of list is visited
     }
@@ -72,6 +71,14 @@ class QuizQuestion {
 
   void reSet() {
     _questionNumber = 0;
+    iconList = [
+      const Icon(
+        Icons.arrow_forward,
+        color: Colors.white,
+      )
+    ];
+    totalQuestion = quizQuestion.questionBank.length;
+    remainQuestion = quizQuestion.questionBank.length;
   }
 
   bool rightBoolvalue() {
