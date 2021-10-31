@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:quizapp/Question.dart';
 
@@ -88,7 +90,7 @@ class QuizQuestion {
   }
 
   int questionNumber() {
-    int hel = _questionNumber;
+    int hel = 2 + _questionNumber;
     return hel;
   }
 }

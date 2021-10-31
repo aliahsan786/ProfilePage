@@ -15,13 +15,13 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         const Duration(seconds: 10),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const QuizApp())));
+            context, MaterialPageRoute(builder: (context) => QuizApp())));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreen,
+      backgroundColor: const Color.fromRGBO(33, 44, 59, 1),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

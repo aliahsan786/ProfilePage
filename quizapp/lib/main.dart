@@ -1,7 +1,8 @@
+import 'dart:async';
+// import 'dart:html';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:quizapp/SplashScreen.dart';
 import 'QuizQuestion.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'QuizApp',
       theme: ThemeData(),
       home: SplashScreen(),
@@ -32,6 +34,7 @@ List<Icon> iconList = [
 ];
 int obtainMarks = 0;
 bool listFinished = true;
+
 // String displayQuestion = QuizQuestion.getQuestion();
 
 class QuizApp extends StatefulWidget {
@@ -41,7 +44,43 @@ class QuizApp extends StatefulWidget {
   _QuizAppState createState() => _QuizAppState();
 }
 
+int totalQuestion = quizQuestion.questionBank.length;
+
 class _QuizAppState extends State<QuizApp> {
+  int _seconds = 00;
+  int _minutes = quizQuestion.questionBank.length ~/ 2;
+  Timer _timer = Timer.periodic(const Duration(seconds: 1), (_) {});
+  void _startTimer() {
+    // ignore: unnecessary_null_comparison
+    if (_timer != null) {
+      _timer.cancel();
+    }
+    if (_minutes > 0) {
+      _seconds = _minutes * 60;
+    }
+    if (_seconds > 0) {
+      _minutes = (_seconds / 60).floor();
+      _seconds -= (_minutes * 60);
+    }
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_seconds > 0) {
+          _seconds--;
+        } else {
+          if (_minutes > 0) {
+            _seconds = 59;
+            _minutes--;
+          } else {
+            _timer.cancel();
+            print('Timer is completed');
+          }
+        }
+      });
+    });
+  }
+
+  int number = 1;
+
   void checkAnswer(bool userValue) {
     if (listFinished == true) {
       if (userValue == quizQuestion.rightBoolvalue()) {
@@ -49,10 +88,12 @@ class _QuizAppState extends State<QuizApp> {
           quizQuestion.checkIcon();
 
           obtainMarks = obtainMarks + 2;
+          number = quizQuestion.questionNumber();
         });
       } else {
         setState(() {
           quizQuestion.closeIcon();
+          number = quizQuestion.questionNumber();
         });
       }
       setState(() {
@@ -60,13 +101,6 @@ class _QuizAppState extends State<QuizApp> {
       });
     }
   }
-
-  void refresh() {
-    setState(() {});
-  }
-
-  int num = 1 + quizQuestion.questionNumber();
-  int totalQuestion = quizQuestion.questionBank.length;
 
   @override
   Widget build(BuildContext context) {
@@ -103,9 +137,9 @@ class _QuizAppState extends State<QuizApp> {
                       const SizedBox(
                         width: 200,
                       ),
-                      const Text(
-                        'Timer ',
-                        style: TextStyle(
+                      Text(
+                        '${_minutes} : ${_seconds}',
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w300),
@@ -128,7 +162,7 @@ class _QuizAppState extends State<QuizApp> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 95, bottom: 95, left: 25, right: 25),
+                        top: 70, bottom: 70, left: 25, right: 25),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
@@ -149,18 +183,18 @@ class _QuizAppState extends State<QuizApp> {
                   ),
                   Positioned(
                       // left: MediaQuery.of(context).size.width / 2,
-                      top: 60,
+                      top: 20,
                       child: CircleAvatar(
                         radius: 34,
-                        backgroundColor: const Color.fromRGBO(33, 44, 59, 1),
+                        backgroundColor: Colors.white30,
                         child: CircleAvatar(
                           radius: 30,
                           backgroundColor: const Color.fromRGBO(33, 44, 59, 1),
                           child: Text(
-                            '$num',
+                            '$number',
                             style: const TextStyle(
                               color: Colors.white70,
-                              fontSize: 20,
+                              fontSize: 25,
                             ),
                           ),
                         ),
@@ -177,6 +211,7 @@ class _QuizAppState extends State<QuizApp> {
                   color: Colors.white70,
                   onPressed: () {
                     checkAnswer(true);
+                    _startTimer();
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
