@@ -1,15 +1,16 @@
 import 'dart:async';
-// import 'dart:html';
+import 'dart:math';
+
 import 'dart:ui';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'package:flutter/material.dart';
 import 'package:quizapp/SplashScreen.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'Question.dart';
 import 'QuizQuestion.dart';
 import 'resultDisplay.dart';
 
-QuizQuestion quizQuestion = new QuizQuestion();
+QuizQuestion quizQuestion = QuizQuestion();
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +30,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class QuizApp extends StatefulWidget {
+  const QuizApp({Key? key}) : super(key: key);
+
+  @override
+  _QuizAppState createState() => _QuizAppState();
+}
+
+////-------------Variable-------------////
 List<Icon> iconList = [
   const Icon(
     Icons.arrow_forward,
@@ -37,58 +46,61 @@ List<Icon> iconList = [
 ];
 List<Question> rightAnswers = [];
 List<Question> wrongAnswers = [];
-int number = 1;
-
+List<Question> dumList = [];
+int listLenth = quizQuestion.questionBank.length;
+int count = 1;
+int randmNumber = Random().nextInt(listLenth);
 int obtainMarks = 0;
 bool listFinished = true;
-
-class QuizApp extends StatefulWidget {
-  const QuizApp({Key? key}) : super(key: key);
-
-  @override
-  _QuizAppState createState() => _QuizAppState();
-}
-
 int totalQuestion = quizQuestion.questionBank.length;
 int remainQuestion = quizQuestion.questionBank.length;
+String question = quizQuestion.getQuestion(randmNumber);
+int seconds = 00;
+int minutes = quizQuestion.questionBank.length ~/ 2;
+Timer _timer = Timer.periodic(const Duration(seconds: 1), (_) {});
 
 class _QuizAppState extends State<QuizApp> {
+/////------Random Number----------////
+  void randomNumber() {
+    // ignore: unnecessary_null_comparison
+    if (listLenth != null) {
+      randmNumber = Random().nextInt(listLenth);
+    }
+  }
+
 //down navigator to next screen
   getItemAndNavigate(BuildContext context) {
     Navigator.push(
       // ignore: prefer_const_constructors
       context,
-      MaterialPageRoute(
-          builder: (context) => ResutDisplay(rightAnswers, wrongAnswers)),
+      MaterialPageRoute(builder: (context) => SplashScreen()),
     );
   }
 //uper navigator to next Screen
 
-  int _seconds = 00;
-  int _minutes = quizQuestion.questionBank.length ~/ 2;
-  Timer _timer = Timer.periodic(const Duration(seconds: 1), (_) {});
-  void _startTimer() {
+  void startTimer() {
     // ignore: unnecessary_null_comparison
     if (_timer != null) {
       _timer.cancel();
     }
-    if (_minutes > 0) {
-      _seconds = _minutes * 60;
+    if (minutes > 0) {
+      seconds = minutes * 60;
     }
-    if (_seconds > 0) {
-      _minutes = (_seconds / 60).floor();
-      _seconds -= (_minutes * 60);
+    if (seconds > 0) {
+      minutes = (seconds / 60).floor();
+      seconds -= (minutes * 60);
     }
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        if (_seconds > 0) {
-          _seconds--;
+        if (seconds > 0) {
+          seconds--;
         } else {
-          if (_minutes > 0) {
-            _seconds = 59;
-            _minutes--;
+          if (minutes > 0) {
+            seconds = 59;
+            minutes--;
           } else {
             _timer.cancel();
+            // ignore: avoid_print
             print('Timer is completed');
             setState(() {
               listFinished = false;
@@ -100,50 +112,155 @@ class _QuizAppState extends State<QuizApp> {
   }
 
   void checkAnswer(bool userValue) {
-    if (listFinished == true) {
-      if (userValue == quizQuestion.rightBoolvalue()) {
+    // ignore: unnecessary_null_comparison
+    if (listLenth != 0 || listFinished != false) {
+      if (userValue == quizQuestion.rightBoolvalue(randmNumber)) {
+        rightAnswers.add(quizQuestion.questionBank[randmNumber]);
+        dumList.add(quizQuestion.questionBank[randmNumber]);
+        quizQuestion.questionBank.removeAt(randmNumber);
+        // randomNumber();
         setState(() {
           quizQuestion.checkIcon();
-          remainQuestion = remainQuestion - 1;
-          rightAnswers.add(
-              quizQuestion.questionBank[quizQuestion.questionNumber() - 2]);
-          obtainMarks = obtainMarks + 2;
-          number = quizQuestion.questionNumber();
-          // remainQuestion = quizQuestion.remainQuestion();
+          listLenth = quizQuestion.questionBank.length;
+
+          if (listLenth != 0) {
+            randmNumber = Random().nextInt(listLenth);
+            count++;
+            question = quizQuestion.getQuestion(randmNumber);
+          } else {
+            listFinished = false;
+          }
+
+          print('random number $randmNumber');
+          print('count $count');
+          print('listlenth $listLenth');
+          print(question);
         });
       } else {
+        wrongAnswers.add(quizQuestion.questionBank[randmNumber]);
+        dumList.add(quizQuestion.questionBank[randmNumber]);
+        quizQuestion.questionBank.removeAt(randmNumber);
+        // randomNumber();
         setState(() {
           quizQuestion.closeIcon();
-          remainQuestion = remainQuestion - 1;
-          wrongAnswers.add(
-              quizQuestion.questionBank[quizQuestion.questionNumber() - 2]);
+          quizQuestion;
+          listLenth = quizQuestion.questionBank.length;
+          if (listLenth != 0) {
+            randmNumber = Random().nextInt(listLenth);
+            count++;
 
-          number = quizQuestion.questionNumber();
-          // remainQuestion = quizQuestion.remainQuestion();
+            question = quizQuestion.getQuestion(randmNumber);
+          } else {
+            listFinished = false;
+          }
+
+          print('random number $randmNumber');
+          print('count $count');
+          print('listlenth $listLenth');
+          print(question);
         });
       }
-      setState(() {
-        quizQuestion.nextQuestion();
-      });
     } else {
-      setState(() {
-        Alert(
-                context: context,
-                title: 'Finished!',
-                desc: 'You\'ve reached the end of the quiz.',
-                closeFunction: getItemAndNavigate(context))
-            .show();
-        quizQuestion.reSet();
-        number = 1;
-        _seconds = 0;
-        _minutes = 0;
-      });
+      quizQuestion.questionBank = dumList;
+      Alert(context: context, title: 'Completed', desc: 'Your Quiz solved')
+          .show();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color.fromRGBO(33, 44, 59, 1),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Expanded(
+                    flex: 2,
+                    child: CircleAvatar(
+                      radius: 45,
+                      backgroundColor: Colors.white70,
+                      child: CircleAvatar(
+                          radius: 42,
+                          backgroundImage: AssetImage('images/quiz.png')),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Quiz info',
+                      style: TextStyle(color: Colors.white70, fontSize: 25),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const ListTile(
+              tileColor: Colors.white70,
+              hoverColor: Colors.white70,
+              selectedTileColor: Colors.red,
+              focusColor: Colors.white70,
+              leading: Icon(
+                Icons.check,
+                color: Color.fromRGBO(25, 29, 42, 1),
+                size: 30,
+              ),
+              title: Text(
+                'Totel Questions',
+                style: TextStyle(
+                  color: Color.fromRGBO(25, 29, 42, 1),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const ListTile(
+              tileColor: Colors.white70,
+              hoverColor: Colors.white70,
+              selectedTileColor: Colors.red,
+              focusColor: Colors.white70,
+              leading: Icon(
+                Icons.check,
+                color: Color.fromRGBO(25, 29, 42, 1),
+                size: 30,
+              ),
+              title: Text(
+                'Correct Answers',
+                style: TextStyle(
+                  color: Color.fromRGBO(25, 29, 42, 1),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const ListTile(
+              tileColor: Colors.white70,
+              hoverColor: Colors.white70,
+              selectedTileColor: Colors.red,
+              focusColor: Colors.white70,
+              leading: Icon(
+                Icons.check,
+                color: Color.fromRGBO(25, 29, 42, 1),
+                size: 30,
+              ),
+              title: Text(
+                'Wrong Answers',
+                style: TextStyle(
+                  color: Color.fromRGBO(25, 29, 42, 1),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(33, 44, 59, 1),
         title: const Text('QuizApp'),
@@ -167,7 +284,7 @@ class _QuizAppState extends State<QuizApp> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Quiz : ${remainQuestion} / ${totalQuestion}',
+                        'Quiz : $listLenth / $totalQuestion',
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -177,7 +294,7 @@ class _QuizAppState extends State<QuizApp> {
                         width: 175,
                       ),
                       Text(
-                        '${_minutes} : ${_seconds}',
+                        '$minutes : $seconds',
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -210,7 +327,7 @@ class _QuizAppState extends State<QuizApp> {
                       padding: const EdgeInsets.all(15.0),
                       child: Center(
                         child: Text(
-                          quizQuestion.getQuestion(),
+                          question,
                           style: const TextStyle(
                               color: Color.fromRGBO(33, 44, 59, 1),
                               // backgroundColor: Colors.white,
@@ -230,7 +347,7 @@ class _QuizAppState extends State<QuizApp> {
                           radius: 30,
                           backgroundColor: const Color.fromRGBO(33, 44, 59, 1),
                           child: Text(
-                            '$number',
+                            '$count',
                             style: const TextStyle(
                               color: Colors.white70,
                               fontSize: 25,
@@ -243,30 +360,27 @@ class _QuizAppState extends State<QuizApp> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
-              child: GestureDetector(
-                child: MaterialButton(
-                  padding: const EdgeInsets.only(
-                      left: 5, right: 5, top: 10, bottom: 10),
-                  color: Colors.white70,
-                  onPressed: () {
-                    checkAnswer(true);
-                    _startTimer();
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  minWidth: 320,
-                  height: 40,
-                  child: const Text(
-                    'True',
-                    style: TextStyle(
-                        color: Color.fromRGBO(33, 44, 59, 1),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                onTap: () {
-                  setState(() {});
+              child: MaterialButton(
+                padding: const EdgeInsets.only(
+                    left: 5, right: 5, top: 10, bottom: 10),
+                color: Colors.white70,
+                onPressed: () {
+                  checkAnswer(true);
+
+                  // ignore: avoid_print
+                  print(quizQuestion.questionBank.length);
                 },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                minWidth: 320,
+                height: 40,
+                child: const Text(
+                  'True',
+                  style: TextStyle(
+                      color: Color.fromRGBO(33, 44, 59, 1),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             Padding(
@@ -280,6 +394,8 @@ class _QuizAppState extends State<QuizApp> {
                 color: Colors.white70,
                 onPressed: () {
                   checkAnswer(false);
+                  // ignore: avoid_print
+                  print(quizQuestion.questionBank.length);
                 },
                 minWidth: 320,
                 height: 40,
