@@ -49,9 +49,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-
-// Positioned(
-//                   left: 25,
-                  //  
-// )

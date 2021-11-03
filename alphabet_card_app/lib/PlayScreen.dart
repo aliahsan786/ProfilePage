@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:alphabet_card_app/main.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +101,7 @@ class _PlayScreenState extends State<PlayScreen> {
             // ignore: avoid_print
             print('Timer is completed');
             setState(() {
-              if (count < capitalAlpha.length) {
+              if (count < capitalAlpha.length - 1) {
                 count++;
                 seconds = 5;
                 startTimer();
@@ -203,7 +202,7 @@ class _PlayScreenState extends State<PlayScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          if (count < capitalAlpha.length) {
+                          if (count < capitalAlpha.length - 1) {
                             count--;
                             seconds = 5;
                             startTimer();
@@ -222,7 +221,7 @@ class _PlayScreenState extends State<PlayScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          if (count < capitalAlpha.length) {
+                          if (count < capitalAlpha.length - 1) {
                             count++;
                             seconds = 5;
                             startTimer();
@@ -235,16 +234,27 @@ class _PlayScreenState extends State<PlayScreen> {
                   ? FloatingActionButton(
                       elevation: 20,
                       backgroundColor: Colors.green,
-                      child: const Text(
-                        'Start',
-                      ),
+                      child: const Icon(Icons.play_arrow),
                       onPressed: () {
                         setState(() {
+                          count;
                           startTimer();
+
                           num = true;
                         });
                       })
                   : Container()
+              //  FloatingActionButton(
+              //     elevation: 20,
+              //     backgroundColor: Colors.green,
+              //     child: const Icon(Icons.pause),
+              //     onPressed: () {
+              //       setState(() {
+              //         // count;
+              //         // seconds = 5;
+              //         num = false;
+              //       });
+              //     })
             ],
           ),
         ));
