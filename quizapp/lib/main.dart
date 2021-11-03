@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'dart:ui';
+import 'package:quizapp/FinalResult.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'package:flutter/material.dart';
@@ -73,7 +74,7 @@ class _QuizAppState extends State<QuizApp> {
     Navigator.push(
       // ignore: prefer_const_constructors
       context,
-      MaterialPageRoute(builder: (context) => SplashScreen()),
+      MaterialPageRoute(builder: (context) => FinalResult()),
     );
   }
 //uper navigator to next Screen
@@ -161,8 +162,23 @@ class _QuizAppState extends State<QuizApp> {
         });
       }
     } else {
-      quizQuestion.questionBank = dumList;
-      Alert(context: context, title: 'Completed', desc: 'Your Quiz solved')
+      // quizQuestion.questionBank = dumList;
+      // listLenth = quizQuestion.questionBank.length;
+      // count = 1;
+      // randmNumber = Random().nextInt(listLenth);
+      // obtainMarks = 0;
+      // listFinished = true;
+      // totalQuestion = quizQuestion.questionBank.length;
+      // remainQuestion = quizQuestion.questionBank.length;
+      // question = quizQuestion.getQuestion(randmNumber);
+      // seconds = 00;
+      // minutes = quizQuestion.questionBank.length ~/ 2;
+
+      Alert(
+              context: context,
+              title: 'Completed',
+              desc: 'Your Quiz solved',
+              closeFunction: getItemAndNavigate(context))
           .show();
     }
   }
@@ -219,6 +235,7 @@ class _QuizAppState extends State<QuizApp> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              trailing: Icon(Icons.arrow_drop_down),
             ),
             const ListTile(
               tileColor: Colors.white70,
@@ -238,6 +255,7 @@ class _QuizAppState extends State<QuizApp> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              trailing: Icon(Icons.arrow_drop_down),
             ),
             const ListTile(
               tileColor: Colors.white70,
@@ -257,6 +275,7 @@ class _QuizAppState extends State<QuizApp> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              trailing: Icon(Icons.arrow_drop_down),
             ),
           ],
         ),
