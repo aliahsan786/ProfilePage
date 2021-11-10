@@ -1,0 +1,4 @@
+#Wed Nov 10 09:27:23 PKT 2021
+base.0=D\:\\Lab to github\\ProfilePage\\guessing_game\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
