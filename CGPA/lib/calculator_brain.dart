@@ -23,7 +23,7 @@ class CalculatorBrain {
       return 'Bad';
     }
   }
-
+  final difference = endDate.difference(startDate).inDays;
   String getInterpretation() {
     if (_cgp >= (Credit*(3/4))) {
       return 'You have a higher than normal body weight. Try to exercise more.';
@@ -32,5 +32,7 @@ class CalculatorBrain {
     } else {
       return 'You have a lower than normal body weight. You can eat a bit more.';
     }
+
+    print(difference);print('Hello');
   }
 }

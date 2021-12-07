@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[ Expanded(
-          child: Row(
+          child: Column(
             children: <Widget>[
               Expanded(
                 child: ReusableCard(
