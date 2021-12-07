@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       appBar: AppBar(
-        title: Text('Home Screen'),
+        title: const Text('Home Screen'),
       ),
       body: Center(
         child: Column(
@@ -97,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   alphaCase = false;
                   Navigator.push(
                     context,
+                    // ignore: prefer_const_constructors
                     MaterialPageRoute(builder: (context) => PlayScreen()),
                   );
                 },

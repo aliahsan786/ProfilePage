@@ -4,6 +4,9 @@ import 'dart:async';
 
 import 'package:alphabet_card_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+final FirebaseDatabase database = FirebaseDatabase.instance;
 
 class PlayScreen extends StatefulWidget {
   const PlayScreen({Key? key}) : super(key: key);
@@ -136,7 +139,7 @@ class _PlayScreenState extends State<PlayScreen> {
         appBar: AppBar(
           title: const Text('Play Time'),
         ),
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -173,14 +176,14 @@ class _PlayScreenState extends State<PlayScreen> {
               ),
               alphaCase == true
                   ? Text(
-                      '${capitalAlpha[count]}',
+                      capitalAlpha[count],
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 60,
                           fontWeight: FontWeight.w600),
                     )
                   : Text(
-                      '${smallAlpha[count]}',
+                      smallAlpha[count],
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 60,
@@ -206,6 +209,10 @@ class _PlayScreenState extends State<PlayScreen> {
                             count--;
                             seconds = 5;
                             startTimer();
+                            database
+                                .reference()
+                                .child('Detail')
+                                .set({'Lastname': 'Ahsan'});
                           }
                         });
                       }),
@@ -225,6 +232,10 @@ class _PlayScreenState extends State<PlayScreen> {
                             count++;
                             seconds = 5;
                             startTimer();
+                            database
+                                .reference()
+                                .child('Detail')
+                                .set({'Firstname': 'Ali'});
                           }
                         });
                       }),
