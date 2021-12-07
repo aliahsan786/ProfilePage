@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +27,7 @@ class _ClimateState extends State<Climate> {
       return ChangeCity();
     }));
 
-    if (results.isEmpty && results.containsKey('enter')) {
+    if (results != null && results.containsKey('enter')) {
       setState(() {
         _cityEntered = results['enter'];
       });
@@ -107,9 +109,9 @@ class _ClimateState extends State<Climate> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.fromLTRB(20, 25.9, 0, 0),
+            margin: const EdgeInsets.fromLTRB(200, 25.9, 0, 0),
             child: Text(
-              '${_cityEntered!.isEmpty ? util.defaultCity : _cityEntered}',
+              '${_cityEntered == null ? util.defaultCity : _cityEntered}',
               style: const TextStyle(
                   fontSize: 25.9,
                   fontStyle: FontStyle.italic,
@@ -120,7 +122,7 @@ class _ClimateState extends State<Climate> {
             alignment: Alignment.topRight,
             margin: const EdgeInsets.fromLTRB(0, 10.9, 20.9, 0),
             child: updateTempWidget(
-                '${_cityEntered!.isEmpty ? util.defaultCity : _cityEntered}'),
+                '${_cityEntered == null ? util.defaultCity : _cityEntered}'),
           ),
         ],
       ),
