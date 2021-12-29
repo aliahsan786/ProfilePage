@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:password_dairy/listOfPassword.dart';
 import 'package:password_dairy/widget/new_password.dart';
 
 class PasswordDisplayScreen extends StatelessWidget {
@@ -32,7 +33,6 @@ class PasswordDisplayScreen extends StatelessWidget {
             InkWell(
               onTap: () {
                 _newPasswordFunction(context);
-                Navigator.of(context).pop();
               },
               child: ListTile(
                 title: Text('Add Password'),
@@ -42,6 +42,7 @@ class PasswordDisplayScreen extends StatelessWidget {
           ],
         ),
       ),
+      body: ListOfPassword(),
     );
   }
 }

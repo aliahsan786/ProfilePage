@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:myapp/Screens/transactionDetailScreen.dart';
 
 // ignore: camel_case_types
-class Transaction_List extends StatelessWidget {
+class ListOfPassword extends StatelessWidget {
   DateTime dateTime = DateTime.now();
   String title = 'Nothing';
   DateTime firebaseDate = DateTime.now();
-  double amount = 0;
+  String password = "";
   String itemId = 'abc';
   double totleSpent = 0;
   @override
@@ -34,18 +32,14 @@ class Transaction_List extends StatelessWidget {
       });
     }
 
+    int x = 0;
     String year = dateTime.year.toString();
-    String month = DateFormat.MMM().format(dateTime);
     final mediaQuery = MediaQuery.of(context);
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('year')
-            .doc('$year')
-            .collection('$month')
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection('Dairy').snapshots(),
         builder: (ctx, streamSnapshort) {
           if (streamSnapshort.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -55,25 +49,9 @@ class Transaction_List extends StatelessWidget {
               : ListView.builder(
                   itemCount: document.length,
                   itemBuilder: (ctx, index) {
-                    void deleteEntry(String id, BuildContext context) {
-                      FirebaseFirestore.instance
-                          .collection('year/$year/$month')
-                          .doc(streamSnapshort.data!.docs[index].id)
-                          .delete();
-                    }
-
                     title = document[index]['title'];
-                    amount = document[index]['Amount'];
-                    DateTime firebaseDate = DateTime.parse(
-                        (document[index]['Date']).toDate().toString());
-                    itemId = document[index]['Id'];
-                    totleSpent = amount + totleSpent;
-
-                    FirebaseFirestore.instance
-                        .doc('totleExpense/$year')
-                        .collection('$month')
-                        .doc('OXoeJKpuKtuAVpGSYzex')
-                        .update({'Spent': '$totleSpent'});
+                    password = document[index]['Password'];
+                    x = x + 1;
 
                     return Card(
                       elevation: 5,
@@ -81,43 +59,19 @@ class Transaction_List extends StatelessWidget {
                         vertical: 8,
                         horizontal: 5,
                       ),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (ctx) {
-                            return TransactionDetailScreen(
-                                title, amount, firebaseDate);
-                          }));
-                        },
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            radius: 30,
-                            child: Container(
-                              padding: EdgeInsets.all(6),
-                              child: FittedBox(child: Text('$amount')),
-                            ),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: 30,
+                          child: Container(
+                            padding: EdgeInsets.all(6),
+                            child: FittedBox(child: Text('$x')),
                           ),
-                          title: Text(
-                            title,
-                            style: Theme.of(context).textTheme.subtitle1,
-                          ),
-                          subtitle: Text(
-                            DateFormat.yMMMd().format(
-                              firebaseDate,
-                            ),
-                          ),
-                          trailing: mediaQuery.size.width > 460
-                              ? FlatButton.icon(
-                                  onPressed: () => deleteEntry(itemId, context),
-                                  icon: Icon(Icons.delete),
-                                  textColor: Theme.of(context).errorColor,
-                                  label: Text('Delete'))
-                              : IconButton(
-                                  icon: Icon(Icons.delete),
-                                  color: Theme.of(context).errorColor,
-                                  onPressed: () => deleteEntry(itemId, context),
-                                ),
                         ),
+                        title: Text(
+                          title,
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                        subtitle: Text('$password'),
                       ),
                     );
                   });
