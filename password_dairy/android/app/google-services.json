@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "788328879722",
+    "project_id": "password-dairy",
+    "storage_bucket": "password-dairy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788328879722:android:54ddaa09e41dd9410cdc13",
+        "android_client_info": {
+          "package_name": "com.example.password_dairy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788328879722-52devje3citrafq66gsmgsvt4ubr1l1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.password_dairy",
+            "certificate_hash": "6821280d1386fdeb2dee7434e38ef0fa3300ef59"
+          }
+        },
+        {
+          "client_id": "788328879722-i82h5jb58vnmjut54o66ocke1oh0iplj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2N97JfKWnivF8OH5e8VUDrvmJTJqLJGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788328879722-i82h5jb58vnmjut54o66ocke1oh0iplj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
