@@ -1,8 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:password_dairy/codeCheck.dart';
 
 // ignore: camel_case_types
 class ListOfPassword extends StatelessWidget {
+  void _pinCheckFunction(BuildContext ctx, String title, String password) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return GestureDetector(
+            onTap: () {},
+            child: CheckBox(title, password),
+            behavior: HitTestBehavior.opaque,
+          );
+        });
+  }
+
+  void toDetailScreen() {}
+
   DateTime dateTime = DateTime.now();
   String title = 'Nothing';
   DateTime firebaseDate = DateTime.now();
@@ -53,25 +68,28 @@ class ListOfPassword extends StatelessWidget {
                     password = document[index]['Password'];
                     x = x + 1;
 
-                    return Card(
-                      elevation: 5,
-                      margin: EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 5,
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          radius: 30,
-                          child: Container(
-                            padding: EdgeInsets.all(6),
-                            child: FittedBox(child: Text('$x')),
+                    return InkWell(
+                      onTap: () => _pinCheckFunction(context, title, password),
+                      child: Card(
+                        elevation: 5,
+                        margin: EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 5,
+                        ),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 30,
+                            child: Container(
+                              padding: EdgeInsets.all(6),
+                              child: FittedBox(child: Text('$x')),
+                            ),
                           ),
+                          title: Text(
+                            title,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          subtitle: Text(''),
                         ),
-                        title: Text(
-                          title,
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                        subtitle: Text('$password'),
                       ),
                     );
                   });

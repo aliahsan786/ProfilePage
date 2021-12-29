@@ -24,10 +24,18 @@ class PasswordDisplayScreen extends StatelessWidget {
       drawer: Drawer(
         child: Column(
           children: [
+            SizedBox(
+              height: 30,
+            ),
             Container(
-              color: Theme.of(context).primaryColor,
+              color: Colors.purple,
+              width: MediaQuery.of(context).size.width,
               child: const DrawerHeader(
-                child: Text('Password Dairy'),
+                child: Text(
+                  'Password Dairy',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 40, color: Colors.white),
+                ),
               ),
             ),
             InkWell(
