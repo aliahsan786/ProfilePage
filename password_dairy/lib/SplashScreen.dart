@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:password_dairy/PasswordDisplayScreen.dart';
 import 'dart:async';
 
 import 'main.dart';
@@ -16,9 +17,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        const Duration(seconds: 10),
+        const Duration(seconds: 3),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MyHomePage())));
+            context,
+            MaterialPageRoute(
+                builder: (context) => const PasswordDisplayScreen())));
   }
 
   @override
